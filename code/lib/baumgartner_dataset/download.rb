@@ -15,12 +15,12 @@ module BaumgartnerDownload
 
   #TAKE CARE IN DOWNLOADING DATA - too many requests will crash Baumgartner's server.
   def get_reddit_data
-    self.send("submission_files#{@method_suffix}").each do |year, months|
+    submission_files.each do |year, months|
       months.each do |month|
         get("http://files.pushshift.io/reddit/submissions/RS_#{year}-#{month}.bz2", "data/baumgartner/submissions")
       end
     end
-    self.send("comment_files#{@method_suffix}").each do |year, months|
+    comment_files.each do |year, months|
       months.each do |month|
         get("http://files.pushshift.io/reddit/comments/RC_#{year}-#{month}.bz2", "data/baumgartner/comments")
       end

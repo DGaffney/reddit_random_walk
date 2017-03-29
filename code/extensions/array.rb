@@ -83,7 +83,7 @@ class Array
     end
   end
 
-	def reverse_percentile(value=0.0)
+  def reverse_percentile(value=0.0)
     index_value = nil
     self.collect(&:to_f).sort.each do |val|
       index_value = val;break if value <= val

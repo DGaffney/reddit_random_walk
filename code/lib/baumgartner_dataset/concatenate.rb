@@ -26,12 +26,12 @@ module BaumgartnerConcatenate
 
   def concatenate_files
     mkdir_concatenated_folder
-    self.send("submission_files#{@method_suffix}").each do |year, months|
+    submission_files.each do |year, months|
       months.each do |month|
         concatenate_sparse_submission(year, month)
       end
     end
-    self.send("comment_files#{@method_suffix}").each do |year, months|
+    comment_files.each do |year, months|
       months.each do |month|
         concatenate_sparse_comment(year, month)
       end

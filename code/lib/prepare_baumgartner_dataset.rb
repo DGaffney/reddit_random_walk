@@ -9,6 +9,13 @@ class PrepareBaumgartnerDataset
     @method_suffix = "_#{@full ? "real" : "test"}"
   end
 
+  def submission_files
+    self.send("submission_files#{@method_suffix}")
+  end
+  
+  def comment_files
+    self.send("comment_files#{@method_suffix}")
+  end
   def run
     get_reddit_data
     extract_useful_fields
