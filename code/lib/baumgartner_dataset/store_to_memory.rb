@@ -1,0 +1,3 @@
+module StoreToMemory
+
+end

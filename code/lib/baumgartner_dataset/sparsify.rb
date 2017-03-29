@@ -11,7 +11,7 @@ module BaumgartnerSparsify
   end
 
   def bzip_submission(year, month)
-    "bzip2 -dck #{ENV["PWD"]}/data/baumgartner/submissions/#{year}/RS_#{year}-#{month}.bz2"
+    "bzip2 -dck #{ENV["PWD"]}/data/baumgartner/submissions/RS_#{year}-#{month}.bz2"
   end
 
   def jq_submission
@@ -27,7 +27,7 @@ module BaumgartnerSparsify
   end
 
   def bzip_comment(year, month)
-    "bzip2 -dck #{ENV["PWD"]}/data/baumgartner/submissions/#{year}/RC_#{year}-#{month}.bz2"
+    "bzip2 -dck #{ENV["PWD"]}/data/baumgartner/comments/RC_#{year}-#{month}.bz2"
   end
 
   def jq_comment
@@ -35,7 +35,7 @@ module BaumgartnerSparsify
   end
 
   def sparse_file_comment(year, month)
-    "#{ENV["PWD"]}/data/baumgartner_sparse/comment/comment_sparse_#{year}-#{month}.csv"
+    "#{ENV["PWD"]}/data/baumgartner_sparse/comments/comment_sparse_#{year}-#{month}.csv"
   end
 
   def sparsify_comment(year, month)

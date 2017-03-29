@@ -5,27 +5,27 @@ module BaumgartnerManifest
 
   def full_timeline
     res = {"2016" => ["01", "02"]}
-    "2006".upto("2015").collect{|y| res[y] = all_months}
+    "2008".upto("2015").collect{|y| res[y] = all_months}
     res
   end
 
   def submission_files_real
-    full_timeline
+    full_timeline.merge({"2006" => ["01", "02", "03", "04", "05", "06", "07"], "2007" => ["01", "02", "03", "06", "07", "10", "11", "12"]})
   end
 
   def submission_files_test
     {
-      "2006" => "01".upto("10").to_a
+      "2006" => ["01", "02"]
     }
   end
 
   def comment_files
-    full_timeline
+    full_timeline.merge({"2005" => ["12"], "2006" => all_months, "2007" => all_months})
   end
 
   def comment_files_test
     {
-      "2006" => "01".upto("10").to_a
+      "2006" => ["01", "02"]
     }
   end
 end
