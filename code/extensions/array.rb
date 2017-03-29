@@ -70,9 +70,9 @@ class Array
     end
   end
 
-	def percentile(percentile=0.0)
-	  if percentile == 0.0
-	    return self.sort.first
+  def percentile(percentile=0.0)
+    if percentile == 0.0
+      return self.sort.first
     else
       classes = self.collect(&:class).uniq
       if ([Hash, Array]-classes==[Hash, Array]) && classes.length == 1

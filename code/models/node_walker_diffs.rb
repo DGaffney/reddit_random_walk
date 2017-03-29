@@ -42,15 +42,15 @@ class NodeWalkerDiffs
   end
   
   def perform(day)
-    days_probabilities = DailyEdgeRedis.get(day);false
-    edge_counts = days_probabilities.values.collect(&:keys).flatten.counts;false
+    days_probabilities = DailyEdgeRedis.get(day)
+    edge_counts = days_probabilities.values.collect(&:keys).flatten.counts
     all_sent_amounts = {}
     days_probabilities.values.each do |value_set|
       value_set.each do |source_subreddit,sent_amount|
         all_sent_amounts[source_subreddit] ||= 0
         all_sent_amounts[source_subreddit] += sent_amount
       end
-    end;false
+    end
     all_diffs = []
     days_probabilities.keys.each do |subreddit|
       if days_probabilities[subreddit].count == 1 && days_probabilities[subreddit].keys.first == subreddit
@@ -73,8 +73,8 @@ class NodeWalkerDiffs
         sent_percents = []
         expected_amounts = []
         sent_amounts = []
-        traffic_in_count = Hash[days_probabilities[subreddit].reject{|k,v| k == subreddit}].values.sum
-        edge_count = Hash[days_probabilities[subreddit].reject{|k,v| k == subreddit}].count
+        traffic_in_count = Hash[days_probabilities[subreddit].reject{|k,_| k == subreddit}].values.sum
+        edge_count = Hash[days_probabilities[subreddit].reject{|k,_| k == subreddit}].size
         self_loop_amount = 0
         self_loop_percent = 0.0
         days_probabilities[subreddit].each do |sent_subreddit, sent_count|

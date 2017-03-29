@@ -2,7 +2,7 @@ module BaumgartnerDownload
   def get(url, folder_dest)
     `wget #{url}`
     file = url.split("/").last
-    `mv #{file} #{ENV["PWD"]}/#{file}`
+    `mv #{file} #{ENV["PWD"]}/#{folder_dest}/`
   end
 
   def get_missing_data
