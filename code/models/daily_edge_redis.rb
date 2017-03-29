@@ -14,7 +14,7 @@ class DailyEdgeRedis
       raw_page[1..-1].each_slice(2) do |source_subreddit, inbound_count|
         refreshed[raw_page.first][source_subreddit] = inbound_count.to_i
       end
-    end;false
+    end
     refreshed
   end
   def self.get_range(start_day, end_day)

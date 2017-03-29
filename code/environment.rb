@@ -16,4 +16,4 @@ MongoMapper.connection = Mongo::MongoClient.new(CONFIG["db_host"], 27017, :pool_
 MongoMapper.connection["admin"].authenticate(CONFIG["db_user"], CONFIG["db_password"])
 MongoMapper.database = CONFIG["database"]
 $redis = Redis.new
-$all_reddit_days = File.read("data/all_active_reddit_days.txt").split("\n");false
+$all_reddit_days = File.read("data/all_active_reddit_days.txt").split("\n")
