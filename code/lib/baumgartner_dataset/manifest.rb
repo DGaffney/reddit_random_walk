@@ -1,18 +1,16 @@
 module BaumgartnerManifest
+  def all_months
+    "01".upto("12").to_a
+  end
+
+  def full_timeline
+    res = {"2016" => ["01", "02"]}
+    "2006".upto("2015").collect{|y| res[y] = all_months}
+    res
+  end
+
   def submission_files_real
-    {
-      "2006" => "01".upto("12").to_a,
-      "2007" => "01".upto("12").to_a,
-      "2008" => "01".upto("12").to_a,
-      "2009" => "01".upto("12").to_a,
-      "2010" => "01".upto("12").to_a,
-      "2011" => "01".upto("12").to_a,
-      "2012" => "01".upto("12").to_a,
-      "2013" => "01".upto("12").to_a,
-      "2014" => "01".upto("12").to_a,
-      "2015" => "01".upto("12").to_a,
-      "2016" => "01".upto("02").to_a
-    }
+    full_timeline
   end
 
   def submission_files_test
@@ -22,19 +20,7 @@ module BaumgartnerManifest
   end
 
   def comment_files
-    {
-      "2006" => "01".upto("12").to_a,
-      "2007" => "01".upto("12").to_a,
-      "2008" => "01".upto("12").to_a,
-      "2009" => "01".upto("12").to_a,
-      "2010" => "01".upto("12").to_a,
-      "2011" => "01".upto("12").to_a,
-      "2012" => "01".upto("12").to_a,
-      "2013" => "01".upto("12").to_a,
-      "2014" => "01".upto("12").to_a,
-      "2015" => "01".upto("12").to_a,
-      "2016" => "01".upto("02").to_a
-    }
+    full_timeline
   end
 
   def comment_files_test
