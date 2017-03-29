@@ -5,15 +5,12 @@ module BaumgartnerDownload
     `mv #{file} #{ENV["PWD"]}/#{file}`
   end
 
-  def get_missing_submissions
-    get("http://files.pushshift.io/reddit/requests/1-10m_submissions.zip", "data/baumgartner/missing_data")
-    `unzip #{ENV["PWD"]}/data/baumgartner/missing_data/1-10m_submissions.zip`
-    `mv #{ENV["PWD"]}/RS_* #{ENV["PWD"]}/data/baumgartner/missing_data`
-    `rm #{ENV["PWD"]}/RS_* #{ENV["PWD"]}/data/baumgartner/missing_data/1-10m_submissions.zip`
-  end
-
-  def get_missing_comments
-    get("http://www.devingaffney.com/files/reddit_missing_comments_to_feb_2016.json", "data/baumgartner/missing_data")
+  def get_missing_data
+    get("http://www.devingaffney.com/files/missing_comments_and_early_missing_submissions.zip", "data/baumgartner/missing_data")
+    `unzip #{ENV["PWD"]}/data/baumgartner/missing_data/missing_comments_and_early_missing_submissions.zip`
+    `mv #{ENV["PWD"]}/missing_comments.json #{ENV["PWD"]}/data/baumgartner/missing_data`
+    `mv #{ENV["PWD"]}/missing_subreddits_0-10m.json #{ENV["PWD"]}/data/baumgartner/missing_data`
+    `rm #{ENV["PWD"]}/data/baumgartner/missing_data/missing_comments_and_early_missing_submissions.zip`
   end
 
   #TAKE CARE IN DOWNLOADING DATA - too many requests will crash Baumgartner's server.
@@ -29,8 +26,7 @@ module BaumgartnerDownload
       end
     end
     if @full
-      get_missing_submissions
-      get_missing_comments
+      get_missing_data
     end
   end
 end
