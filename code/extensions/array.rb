@@ -17,7 +17,7 @@ class Array
     [mean-(conf_level*stdev)/Math.sqrt(self.length), mean, mean+(conf_level*stdev)/Math.sqrt(self.length)]
   end
 
-  def self.model_sample(n, count, replacement=false)
+  def self.model_sample(n, count)
     offsets = []
     while offsets.length < n
       offsets << rand(count)
@@ -29,9 +29,9 @@ class Array
     return nil if self.empty?
     self.sort!
     if self.length % 2 == 0
-      median_value = (self[self.length / 2] + self[self.length/2 - 1]) / 2.0
+      (self[self.length / 2] + self[self.length/2 - 1]) / 2.0
     else
-      median_value = self[self.length / 2]
+      self[self.length / 2]
     end
   end
   
@@ -70,31 +70,6 @@ class Array
     end
   end
 
-  def elbow
-    elbow_cutoff
-  end
-
-  def elbow_cutoff
-    frequencies = self.counts
-    distances = {}
-    frequencies.each_pair do |insider_score, count|
-      translated_x = insider_score/frequencies.keys.max.to_f
-      translated_y = 1-insider_score/frequencies.keys.max.to_f
-      index = frequencies.keys.sort.index(insider_score)
-      expected_x = index/frequencies.length.to_f
-      expected_y = 1-index/frequencies.length.to_f
-      distances[insider_score] = Math.sqrt((translated_x-expected_x)**2+(translated_y-expected_y)**2)
-    end
-    elbow = distances.sort_by{|k,v| v}.last
-    return 0 if elbow.nil?
-    return elbow.first
-  end
-  
-  def pareto_cutoff
-    #our world is a bit more unfair. 0.8 moved to 0.9.
-    self.percentile(0.9)
-  end
-  
 	def percentile(percentile=0.0)
 	  if percentile == 0.0
 	    return self.sort.first

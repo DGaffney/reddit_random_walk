@@ -14,5 +14,6 @@ class PrepareBaumgartnerDataset
     extract_useful_fields
     sparsify_files
     concatenate_files
+    
   end
 end

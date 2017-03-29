@@ -11,7 +11,7 @@ module BaumgartnerConcatenate
     `#{ENV["PWD"]}/data/baumgartner_sparse/missing`
   end
 
-  def concatenate_sparse_submission(year, month)
+  def concatenate_sparse_comment(year, month)
     `cat #{sparse_file_comment(year, month)} >> #{all_activities_file}`
   end
 
