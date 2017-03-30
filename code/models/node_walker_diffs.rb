@@ -51,7 +51,7 @@ class NodeWalkerDiffs
     sequential = CSV.open(ENV["PWD"]+"/error_diffs_#{strftime_str}_#{percentile}_sequential.csv", "w")
     summarized = CSV.open(ENV["PWD"]+"/error_diffs_#{strftime_str}_#{percentile}_summarized.csv", "w")
     sequential << ["Subreddit", "Time Slice", "Inbound Traffic Count", "Abs Error from Random", "Percent Attributable to Random"]
-    summarized << ["Subreddit", "Sum Inbound Traffic Count", "Obs Count" "Avg Abs Error from Random", "Avg Percent Attributable to Random"]
+    summarized << ["Subreddit", "Sum Inbound Traffic Count", "Obs Count", "Avg Abs Error from Random", "Avg Percent Attributable to Random"]
     summary_data = {}
     NodeWalkerDiffs.where(strftime_str: strftime_str, percentile: percentile, cumulative_post_cutoff: cumulative_post_cutoff).order(:time).each do |nwd|
       sequential << [nwd.subreddit, nwd.time_str, nwd.traffic_in_count, nwd.node_error, nwd.attributable_to_random]
