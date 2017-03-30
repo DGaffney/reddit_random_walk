@@ -1,18 +1,20 @@
 class StoreDailyTrafficToRedis
   include Sidekiq::Worker
   sidekiq_options queue: :daily_edges_redis
-  def perform(day)
-    puts day
-    count_data = DailyEdge.get_by_day_str(day)["count_data"]
-    transformed = {}
-    count_data.each do |subreddits, count|
-      transformed[subreddits.last] ||= []
-      transformed[subreddits.last] << [subreddits.first, count]
+  def perform(file, strftime_str, cumulative_post_cutoff, percentile)
+    user_counts = RedisStorer.get_json("global_user_counts")
+    counts = {}
+    CSV.foreach(BaumgartnerDataset.new.time_transitions+"/"+file) do |row|
+      if user_counts[row.last] >= cumulative_post_cutoff
+        counts[row[1]] ||= {}
+        counts[row[1]][row.first] ||= 0
+        counts[row[1]][row.first] += 1
+      end
     end
     current_i = 0
-    transformed.each do |target_subreddit, source_subreddits|
+    counts.each do |target_subreddit, source_subreddits|
       source_subreddits.each_slice(500) do |source_subreddit_slice|
-        RedisStorer.new.hash_set("#{day}:#{current_i}",[target_subreddit, source_subreddit_slice].flatten.join(","))
+        RedisStorer.new.hash_set("#{file}_#{strftime_str}_#{percentile}:#{current_i}",[target_subreddit, source_subreddit_slice].flatten.join(","))
         current_i += 1
       end
     end

@@ -15,6 +15,8 @@ module BaumgartnerDownload
 
   #TAKE CARE IN DOWNLOADING DATA - too many requests will crash Baumgartner's server.
   def get_reddit_data
+    `mkdir -p #{ENV["PWD"]}/data/baumgartner/submissions`
+    `mkdir -p #{ENV["PWD"]}/data/baumgartner/comments`
     submission_files.each do |year, months|
       months.each do |month|
         get("http://files.pushshift.io/reddit/submissions/RS_#{year}-#{month}.bz2", "data/baumgartner/submissions")
