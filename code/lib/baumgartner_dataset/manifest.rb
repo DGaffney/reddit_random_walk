@@ -19,7 +19,7 @@ module BaumgartnerManifest
     }
   end
 
-  def comment_files
+  def comment_files_real
     full_timeline.merge({"2005" => ["12"], "2006" => all_months, "2007" => all_months})
   end
 
