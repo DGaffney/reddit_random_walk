@@ -99,7 +99,6 @@ module BaumgartnerTransitions
   def summarize_transitions(strftime_str, percentile)
     mkdir_time_transitions_summarized
     cumulative_post_cutoff = RedisStorer.get_json("global_user_counts").values.sort.percentile(percentile)
-    binding.pry
     CSV.read(transition_slice_manifest_file(strftime_str)).flatten.each do |file|
       StoreDailyTrafficToRedis.perform_async(file, strftime_str, cumulative_post_cutoff, percentile)
     end
