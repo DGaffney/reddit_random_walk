@@ -5,9 +5,10 @@ class BaumgartnerDataset
   include BaumgartnerConcatenate
   include BaumgartnerSort
   include BaumgartnerTransitions
-  attr_accessor :full
-  def initialize(full_dataset=false)
+  attr_accessor :full, :downloaded
+  def initialize(full_dataset=false, downloaded=false)
     @full = full_dataset
+    @downloaded = downloaded
     @method_suffix = "_#{@full ? "real" : "test"}"
   end
 
@@ -22,7 +23,7 @@ class BaumgartnerDataset
   def download_and_prepare
     `rm -r #{ENV["PWD"]}/data/baumgartner_*`
     puts "Downloading Data"
-    get_reddit_data
+    get_reddit_data if @downloaded
     puts "Extracting Useful Fields"
     sparsify_files
     puts "Concatenating into single file"

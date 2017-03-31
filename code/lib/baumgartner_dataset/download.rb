@@ -7,10 +7,11 @@ module BaumgartnerDownload
 
   def get_missing_data
     get("http://www.devingaffney.com/files/missing_comments_and_early_missing_submissions.zip", "data/baumgartner/missing_data")
-    `unzip #{ENV["PWD"]}/data/baumgartner/missing_data/missing_comments_and_early_missing_submissions.zip`
-    `mv #{ENV["PWD"]}/missing_comments.json #{ENV["PWD"]}/data/baumgartner/missing_data`
-    `mv #{ENV["PWD"]}/missing_subreddits_0-10m.json #{ENV["PWD"]}/data/baumgartner/missing_data`
-    `rm #{ENV["PWD"]}/data/baumgartner/missing_data/missing_comments_and_early_missing_submissions.zip`
+    `unzip #{ENV["PWD"]}/missing_comments_and_early_missing_submissions.zip`
+    `mkdir #{ENV["PWD"]}/data/baumgartner/missing_data`
+    `mv #{ENV["PWD"]}/missing_comments.json #{ENV["PWD"]}/data/baumgartner/missing_data/`
+    `mv #{ENV["PWD"]}/missing_subreddits_0-10m.json #{ENV["PWD"]}/data/baumgartner/missing_data/`
+    `rm #{ENV["PWD"]}/missing_comments_and_early_missing_submissions.zip`
   end
 
   #TAKE CARE IN DOWNLOADING DATA - too many requests will crash Baumgartner's server.
