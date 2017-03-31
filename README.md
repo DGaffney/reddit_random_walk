@@ -58,4 +58,17 @@ Next, run `rake prepare` in order to extract, sort, and generate all transitions
 [source_subreddit],[target_subreddit],[transition_time],[screen_name],[interevent_time]
 ```
 
-For all transits for all users, counting both comments as well as submissions. Additionally, it creates a file `data/baumgartner_user_counts_summarized.csv` that stores the total number of comments/submissions for all users on Reddit. At this point, you are now ready to start generating results. In this step, you're able to control the time resolution as well as the user activity percentile - the time window is controlled by the standard strftime format - "%Y" will generate year-over-year transitions, "%Y-%m" will generate month-over-month transitions, "%Y-%m-%d" will generate day-over-day transitions, "%Y-%W" will generate week-over-week transitions, and so forth. User activity percentile restricts the users who's transits will be included - a value of 0.0 means that All users will be used, while a value of 0.25 means only the top 75% of users measured by total number of comments/submissions will be used - 0.5 for top 50%, 0.75 for top 25%, and so forth. To run this, we simply use `rake full_live_run["[strftime_format]","[user_activity_percentile]"]`.
+For all transits for all users, counting both comments as well as submissions. Additionally, it creates a file `data/baumgartner_user_counts_summarized.csv` that stores the total number of comments/submissions for all users on Reddit. At this point, you are now ready to start generating results. In this step, you're able to control the time resolution as well as the user activity percentile - the time window is controlled by the standard strftime format - "%Y" will generate year-over-year transitions, "%Y-%m" will generate month-over-month transitions, "%Y-%m-%d" will generate day-over-day transitions, "%Y-%W" will generate week-over-week transitions, and so forth. User activity percentile restricts the users who's transits will be included - a value of 0.0 means that All users will be used, while a value of 0.25 means only the top 75% of users measured by total number of comments/submissions will be used - 0.5 for top 50%, 0.75 for top 25%, and so forth. To run this, we simply use `rake full_live_run["[strftime_format]","[user_activity_percentile]"]`. After this, a new file will be present in the root directory, `error_diffs_[strftime_format]_[user_activity_percentile]_sequential.csv`, which contains the final output, and each row is of the following form:
+
+`[subreddit],[total_number_of_comments_or_submissions],[total_number_of_time_slices_present],[average_error_per_timestep],[average_percent_of_activity_attributable_to_random_walk_assumption_per_timestep]`
+
+The average error per timestep is the average percent difference between the percent of traffic source nodes sent to the target node an the percent we would assume under random walk conditions. The average percent attributable is this same figure but in terms absolute difference in terms of the number of discrete transitions for a time step.
+
+To summarize, if we wanted to generate all transits for all users on Reddit given just this repository and no downloaded data, we would use the following chain of commands (assuming we want daily timesteps and all users):
+
+* `sudo mongod` #start database
+* `sudo redis-server` #start redis
+* `rake download` #download dataset
+* `rake prepare` #extract useful fields, generate transition data
+* `sidekiq -r ./environment.rb -c 10 -q daily_edges_redis` #start workers
+* `rake full_live_run["%Y-%m-%d","0.0"]` #generate results
