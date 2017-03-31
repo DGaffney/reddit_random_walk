@@ -1,8 +1,11 @@
 load 'environment.rb'
 require 'rake'
-task :my_task, [:strftime, :percentile] do |t, args|
-args[:percentile] = args[:percentile].to_f
-  puts "Args were: #{args}"
+task :download do
+  BaumgartnerDataset.new(true).download
+end
+
+task :prepare do
+  BaumgartnerDataset.new(true).prepare
 end
 
 task :full_test_run, [:strftime, :percentile] do |t, args|

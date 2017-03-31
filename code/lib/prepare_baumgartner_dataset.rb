@@ -6,7 +6,7 @@ class BaumgartnerDataset
   include BaumgartnerSort
   include BaumgartnerTransitions
   attr_accessor :full, :downloaded
-  def initialize(full_dataset=false, downloaded=false)
+  def initialize(full_dataset=false)
     @full = full_dataset
     @downloaded = downloaded
     @method_suffix = "_#{@full ? "real" : "test"}"
@@ -19,11 +19,13 @@ class BaumgartnerDataset
   def comment_files
     self.send("comment_files#{@method_suffix}")
   end
-
-  def download_and_prepare
+  def download
     `rm -r #{ENV["PWD"]}/data/baumgartner_*`
     puts "Downloading Data"
-    get_reddit_data if @downloaded
+    get_reddit_data
+  end
+
+  def prepare
     puts "Extracting Useful Fields"
     sparsify_files
     puts "Concatenating into single file"
@@ -32,6 +34,11 @@ class BaumgartnerDataset
     sort_files
     puts "Generating User Transits"
     generate_transitions
+  end
+
+  def download_and_prepare
+    download if @downloaded
+    prepare
   end
   
   def store_sliced_transitions(strftime_str, percentile)
