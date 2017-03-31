@@ -58,10 +58,10 @@ module BaumgartnerTransitions
     csv.close
     user_csv.close
     `LC_ALL=C sort #{user_count_file} | uniq -c > #{user_count_file_summarized}`
-    RedisStorer.set_json("global_user_counts", Hash[CSV.read(user_count_file_summarized, col_sep: " ").collect{|x| x = x.reverse; [x[0], x[1].to_i]}])
   end
   
   def generate_edge_transitions_by_timeframe(strftime_str, percentile)
+    RedisStorer.set_json("global_user_counts", Hash[CSV.read(user_count_file_summarized, col_sep: " ").collect{|x| x = x.reverse; [x[0], x[1].to_i]}])
     `rm -r #{time_transitions_summarized}`
     ii = 0
     buffer = {}
