@@ -69,7 +69,7 @@ class NodeWalkerDiffs
   end
 
   def perform(method_suffix, time, percentile, strftime_str, cumulative_post_cutoff)
-    times_probabilities = DailyEdgeRedis.get(time, strftime_str, percentile)
+    times_probabilities = DailyEdgeRedis.get(method_suffix, time, strftime_str, percentile)
     edge_counts = times_probabilities.values.collect(&:keys).flatten.counts
     all_sent_amounts = {}
     times_probabilities.values.each do |value_set|
@@ -116,7 +116,8 @@ class NodeWalkerDiffs
           weighted_node_error: get_weighted_node_error(expected_percents, sent_amounts, sent_percents, traffic_in_count),
           percentile: percentile,
           strftime_str: strftime_str,
-          cumulative_post_cutoff: cumulative_post_cutoff
+          cumulative_post_cutoff: cumulative_post_cutoff,
+          dataset_tag: method_suffix
         }
         diff_percents = all_diffs[-1][:expected_percents].zip(all_diffs[-1][:sent_percents]).collect{|x| Math.sqrt((x[0]-x[1])**2)}
         not_attributable_to_random = []

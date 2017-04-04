@@ -1,12 +1,12 @@
 class DailyEdgeRedis
-  def self.get(time_slice_str, strftime_str, percentile)
+  def self.get(dataset_tag, time_slice_str, strftime_str, percentile)
     current_i = 0
     raw = []
-    latest = $redis.hget("#{time_slice_str}_#{strftime_str}_#{percentile}:", current_i.to_s)
+    latest = $redis.hget("#{dataset_tag}_#{time_slice_str}_#{strftime_str}_#{percentile}:", current_i.to_s)
     while !latest.nil?
       raw << latest.split(",")
       current_i += 1
-      latest = $redis.hget("#{time_slice_str}_#{strftime_str}_#{percentile}:", current_i.to_s)
+      latest = $redis.hget("#{dataset_tag}_#{time_slice_str}_#{strftime_str}_#{percentile}:", current_i.to_s)
     end
     refreshed = {}
     raw.each do |raw_page|
