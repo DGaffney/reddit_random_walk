@@ -21,6 +21,7 @@ class NodeWalkerDiffs
   key :attributable_to_random, Float
   key :walks_attributed_to_random, Integer
   key :walks_not_attributed_to_random, Integer
+  key :dataset_tag, String
   def get_node_error(expected_percents, sent_percents, edge_count)
     get_node_error_dist(expected_percents, sent_percents).sum/edge_count
   end
@@ -48,12 +49,14 @@ class NodeWalkerDiffs
   end
 
   def self.export(project_folder, strftime_str, percentile, cumulative_post_cutoff)
+  #the whole project_folder,method_suffix,dataset_tag kludgy nightmare should eventually be actually fixed instead of quickly pushed together.
     sequential = CSV.open(project_folder+"/error_diffs_#{strftime_str}_#{percentile}_sequential.csv", "w")
     summarized = CSV.open(project_folder+"/error_diffs_#{strftime_str}_#{percentile}_summarized.csv", "w")
+    dataset_tag = project_folder.split("/").last.gsub("dataset_", "")
     sequential << ["Subreddit", "Time Slice", "Inbound Traffic Count", "Abs Error from Random", "Percent Attributable to Random"]
     summarized << ["Subreddit", "Sum Inbound Traffic Count", "Obs Count", "Avg Abs Error from Random", "Avg Percent Attributable to Random"]
     summary_data = {}
-    NodeWalkerDiffs.where(strftime_str: strftime_str, percentile: percentile, cumulative_post_cutoff: cumulative_post_cutoff).order(:time).each do |nwd|
+    NodeWalkerDiffs.where(dataset_tag: dataset_tag, strftime_str: strftime_str, percentile: percentile, cumulative_post_cutoff: cumulative_post_cutoff).order(:time).each do |nwd|
       sequential << [nwd.subreddit, nwd.time_str, nwd.traffic_in_count, nwd.node_error, nwd.attributable_to_random]
       summary_data[nwd.subreddit] ||= {subreddit_size: 0, total_obs: 0, total_error: 0, total_attributable: 0}
       summary_data[nwd.subreddit][:subreddit_size] += nwd.traffic_in_count

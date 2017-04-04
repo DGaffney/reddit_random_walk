@@ -131,7 +131,6 @@ class WriteNetworks
     #0.9353927979847418
     BaumgartnerDataset.new("early_reddit").download
     BaumgartnerDataset.new("early_reddit").prepare
-    BaumgartnerDataset.new("early_reddit").generate_transitions
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.0)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m-%d", 0.0)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.25)
