@@ -45,14 +45,14 @@ class WriteNetworks
     end
   end
   
-  def generate_restricted_dataset(time_resolution, edge_cut_percentile=0.0, start_time=Time.parse("2005-06-25"), end_time=Time.parse("2009-06-25"))
+  def generate_restricted_dataset(time_resolution, method_suffix, percentile=0.0, start_time=Time.parse("2005-06-25"), end_time=Time.parse("2009-06-25"))
     dataset = {}
     all_counts = {}
     first_seens = {}
     traffic_per_step = {}
     time = start_time
     while time < end_time
-      data = DailyEdgeRedis.get(time.strftime("%Y-%m-%d"))
+      data = DailyEdgeRedis.get(method_suffix, time.strftime("%Y-%m-%d"), "%Y-%m-%d", percentile)
       time_str = time_key(time, time_resolution)
       dataset[time_str] ||= {}
       data.each do |target_node, source_nodes|
@@ -90,19 +90,18 @@ class WriteNetworks
     #obs_est_data = CSV.open("blah.csv", "w")
     dataset.keys.sort[(dataset.keys.sort.index(earliest_possible_date)+1)..-1].each do |time_step|
       network = dataset[time_step]
-      cutoff_count = network.values.collect(&:values).flatten.sort.percentile(edge_cut_percentile)
       cutoff_net = {}
       network.each do |target_node, source_nodes|
         cutoff_net[target_node] ||= {}
         source_nodes.each do |source_node, source_val|
-          if source_val >= cutoff_count
-            cutoff_net[target_node][source_node] = source_val
-          end
+          cutoff_net[target_node][source_node] = source_val
         end
       end
       network = cutoff_net;false
-      f = File.open("tergm_analysis/"+time_step+"_#{time_resolution}_#{edge_cut_percentile}.csv", "w")
-      n = File.open("tergm_analysis_node_data/"+time_step+"_#{time_resolution}_#{edge_cut_percentile}.csv", "w")
+      `mkdir tergm_analysis`
+      `mkdir tergm_analysis_node_data`
+      f = File.open("tergm_analysis/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
+      n = File.open("tergm_analysis_node_data/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
       f.write(["source", "target", "observed", "previous", "estimated"].join(",")+"\n")
       n.write(["subreddit", "default_status", "traffic_count", "log_traffic_count", "category", "political", "general_interest", "technology"].join(",")+"\n")
       network.keys.sort.each do |target_node|
@@ -133,6 +132,7 @@ class WriteNetworks
     BaumgartnerDataset.new("early_reddit").prepare
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.0)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m-%d", 0.0)
+    WriteNetworks.new.generate_restricted_dataset("day", "early_reddit", 0.0)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.25)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m-%d", 0.25)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.50)
@@ -147,7 +147,6 @@ class WriteNetworks
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.50)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m", 0.75)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.75)
-    WriteNetworks.new.generate_restricted_dataset("day")
     WriteNetworks.new.generate_restricted_dataset("week")
     WriteNetworks.new.generate_restricted_dataset("month")
     WriteNetworks.new.generate_restricted_dataset("quarter")
