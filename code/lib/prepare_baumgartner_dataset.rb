@@ -5,9 +5,10 @@ class BaumgartnerDataset
   include BaumgartnerConcatenate
   include BaumgartnerSort
   include BaumgartnerTransitions
-  attr_accessor :full, :downloaded
+  attr_accessor :full, :downloaded, :dataset_tag
   def initialize(dataset_tag="full")
     @method_suffix = "_#{dataset_tag}"
+    @dataset_tag = dataset_tag
     `mkdir #{ENV["PWD"]}/results`
     `mkdir #{project_folder}`
   end
