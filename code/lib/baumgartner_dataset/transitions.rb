@@ -61,7 +61,7 @@ module BaumgartnerTransitions
   end
   
   def generate_edge_transitions_by_timeframe(strftime_str, percentile)
-    RedisStorer.set_json("global_user_counts", Hash[CSV.read(user_count_file_summarized, col_sep: " ").collect{|x| x = x.reverse; [x[0], x[1].to_i]}])
+    RedisStorer.set_json("global_user_counts#{@method_suffix}", Hash[CSV.read(user_count_file_summarized, col_sep: " ").collect{|x| x = x.reverse; [x[0], x[1].to_i]}])
     `rm -r #{time_transitions_summarized}`
     ii = 0
     buffer = {}
@@ -98,9 +98,9 @@ module BaumgartnerTransitions
 
   def summarize_transitions(strftime_str, percentile)
     mkdir_time_transitions_summarized
-    cumulative_post_cutoff = RedisStorer.get_json("global_user_counts").values.sort.percentile(percentile)
+    cumulative_post_cutoff = RedisStorer.get_json("global_user_counts#{@method_suffix}").values.sort.percentile(percentile)
     CSV.read(transition_slice_manifest_file(strftime_str)).flatten.each do |file|
-      StoreDailyTrafficToRedis.perform_async(file, strftime_str, cumulative_post_cutoff, percentile)
+      StoreDailyTrafficToRedis.perform_async(@method_suffix, file, strftime_str, cumulative_post_cutoff, percentile)
     end
     puts "
     ==============================================YO BIRD UP!================================================

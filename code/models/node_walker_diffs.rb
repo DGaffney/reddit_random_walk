@@ -68,7 +68,7 @@ class NodeWalkerDiffs
     summarized.close
   end
 
-  def perform(time, percentile, strftime_str, cumulative_post_cutoff)
+  def perform(method_suffix, time, percentile, strftime_str, cumulative_post_cutoff)
     times_probabilities = DailyEdgeRedis.get(time, strftime_str, percentile)
     edge_counts = times_probabilities.values.collect(&:keys).flatten.counts
     all_sent_amounts = {}
