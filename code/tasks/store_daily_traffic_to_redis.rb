@@ -4,7 +4,7 @@ class StoreDailyTrafficToRedis
   def perform(dataset_tag, file, strftime_str, cumulative_post_cutoff, percentile)
     user_counts = RedisStorer.get_json("global_user_counts#{dataset_tag}")
     counts = {}
-    CSV.foreach(BaumgartnerDataset.new(dataset_tag.gsub("_", "")).time_transitions+"/"+file) do |row|
+    CSV.foreach(BaumgartnerDataset.new(dataset_tag.to_a[1..-1].join("")).time_transitions+"/"+file) do |row|
       if user_counts[row.last] >= cumulative_post_cutoff
         counts[row[1]] ||= {}
         counts[row[1]][row.first] ||= 0
