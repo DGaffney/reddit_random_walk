@@ -6,21 +6,34 @@ class BaumgartnerDataset
   include BaumgartnerSort
   include BaumgartnerTransitions
   attr_accessor :full, :downloaded
-  def initialize(full_dataset=false)
-    @full = full_dataset
-    @downloaded = downloaded
-    @method_suffix = "_#{@full ? "real" : "test"}"
+  def initialize(dataset_tag="full")
+    @method_suffix = "_#{dataset_tag}"
+    `mkdir #{ENV["PWD"]}/results`
+    `mkdir #{project_folder}`
   end
 
-  def submission_files
-    self.send("submission_files#{@method_suffix}")
+  def project_folder
+    "#{ENV["PWD"]}/results/dataset#{@method_suffix}/"
+  end
+
+  def submission_files(dataset_tag)
+    if dataset_tag == "main"
+      self.send("submission_files#{@method_suffix}")
+    else
+      self.send("submission_files_#{dataset_tag}")
+    end
   end
   
   def comment_files
-    self.send("comment_files#{@method_suffix}")
+    if dataset_tag == "main"
+      self.send("comment_files#{@method_suffix}")
+    else
+      self.send("comment_files_#{dataset_tag}")
+    end
   end
+
   def download
-    `rm -r #{ENV["PWD"]}/data/baumgartner_*`
+    `rm -r #{project_folder}baumgartner_*`
     puts "Downloading Data"
     get_reddit_data
   end
@@ -54,6 +67,6 @@ class BaumgartnerDataset
     while Sidekiq::Queue.new("daily_edges_redis").size+Sidekiq::RetrySet.new.size > 0
       sleep(1)
     end
-    NodeWalkerDiffs.export(strftime_str, percentile, cumulative_post_cutoff)
+    NodeWalkerDiffs.export(project_folder, strftime_str, percentile, cumulative_post_cutoff)
   end
 end

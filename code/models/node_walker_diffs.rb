@@ -47,9 +47,9 @@ class NodeWalkerDiffs
     end
   end
 
-  def self.export(strftime_str, percentile, cumulative_post_cutoff)
-    sequential = CSV.open(ENV["PWD"]+"/error_diffs_#{strftime_str}_#{percentile}_sequential.csv", "w")
-    summarized = CSV.open(ENV["PWD"]+"/error_diffs_#{strftime_str}_#{percentile}_summarized.csv", "w")
+  def self.export(project_folder, strftime_str, percentile, cumulative_post_cutoff)
+    sequential = CSV.open(project_folder+"/error_diffs_#{strftime_str}_#{percentile}_sequential.csv", "w")
+    summarized = CSV.open(project_folder+"/error_diffs_#{strftime_str}_#{percentile}_summarized.csv", "w")
     sequential << ["Subreddit", "Time Slice", "Inbound Traffic Count", "Abs Error from Random", "Percent Attributable to Random"]
     summarized << ["Subreddit", "Sum Inbound Traffic Count", "Obs Count", "Avg Abs Error from Random", "Avg Percent Attributable to Random"]
     summary_data = {}

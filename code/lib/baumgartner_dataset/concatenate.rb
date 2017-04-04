@@ -1,14 +1,14 @@
 module BaumgartnerConcatenate
   def all_activities_file
-    "#{ENV["PWD"]}/data/baumgartner_concatenated/all_activities.csv"
+    "#{project_folder}/data/baumgartner_concatenated/all_activities.csv"
   end
 
   def mkdir_concatenated_folder
-    `mkdir #{ENV["PWD"]}/data/baumgartner_concatenated`
+    `mkdir #{project_folder}/data/baumgartner_concatenated`
   end
 
   def all_interactions_file
-    `#{ENV["PWD"]}/data/baumgartner_sparse/missing`
+    `#{project_folder}/data/baumgartner_sparse/missing`
   end
 
   def concatenate_sparse_comment(year, month)
@@ -20,8 +20,8 @@ module BaumgartnerConcatenate
   end
 
   def concatenate_missing_data
-    `cat #{ENV["PWD"]}/data/baumgartner_sparse/missing/comments.csv >> #{all_activities_file}`
-    `cat #{ENV["PWD"]}/data/baumgartner_sparse/missing/submissions.csv >> #{all_activities_file}`
+    `cat #{project_folder}/data/baumgartner_sparse/missing/comments.csv >> #{all_activities_file}`
+    `cat #{project_folder}/data/baumgartner_sparse/missing/submissions.csv >> #{all_activities_file}`
   end
 
   def concatenate_files

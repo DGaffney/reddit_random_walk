@@ -1,22 +1,22 @@
 module BaumgartnerTransitions
   def all_transitions
-    "#{ENV["PWD"]}/data/baumgartner_concatenated/all_transitions.csv"
+    "#{project_folder}/data/baumgartner_concatenated/all_transitions.csv"
   end
 
   def transition_slice_manifest_file(strftime_str)
-    "#{ENV["PWD"]}/data/baumgartner_concatenated/transitions_#{strftime_str}.csv"
+    "#{project_folder}/data/baumgartner_concatenated/transitions_#{strftime_str}.csv"
   end
 
   def user_count_file
-    "#{ENV["PWD"]}/data/baumgartner_user_counts.csv"
+    "#{project_folder}/data/baumgartner_user_counts.csv"
   end
 
   def user_count_file_summarized
-    "#{ENV["PWD"]}/data/baumgartner_user_counts_summarized.csv"
+    "#{project_folder}/data/baumgartner_user_counts_summarized.csv"
   end
 
   def time_transitions_summarized
-    "#{ENV["PWD"]}/data/baumgartner_time_transitions_summarized"
+    "#{project_folder}/data/baumgartner_time_transitions_summarized"
   end
 
   def mkdir_time_transitions_summarized
@@ -24,7 +24,7 @@ module BaumgartnerTransitions
   end
 
   def time_transitions
-    "#{ENV["PWD"]}/data/baumgartner_time_transitions"
+    "#{project_folder}/data/baumgartner_time_transitions"
   end
 
   def mkdir_time_transitions

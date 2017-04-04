@@ -1,9 +1,9 @@
 module BaumgartnerSparsify
   def mkdir_sparse_folders
-    `mkdir #{ENV["PWD"]}/data/baumgartner_sparse/`
-    `mkdir #{ENV["PWD"]}/data/baumgartner_sparse/submissions`
-    `mkdir #{ENV["PWD"]}/data/baumgartner_sparse/comments`
-    `mkdir #{ENV["PWD"]}/data/baumgartner_sparse/missing`
+    `mkdir #{project_folder}/data/baumgartner_sparse/`
+    `mkdir #{project_folder}/data/baumgartner_sparse/submissions`
+    `mkdir #{project_folder}/data/baumgartner_sparse/comments`
+    `mkdir #{project_folder}/data/baumgartner_sparse/missing`
   end
 
   def sort_file
@@ -11,7 +11,7 @@ module BaumgartnerSparsify
   end
 
   def bzip_submission(year, month)
-    "bzip2 -dck #{ENV["PWD"]}/data/baumgartner/submissions/RS_#{year}-#{month}.bz2"
+    "bzip2 -dck #{project_folder}/data/baumgartner/submissions/RS_#{year}-#{month}.bz2"
   end
 
   def jq_submission
@@ -19,7 +19,7 @@ module BaumgartnerSparsify
   end
 
   def sparse_file_submission(year, month)
-    "#{ENV["PWD"]}/data/baumgartner_sparse/submissions/submission_sparse_#{year}-#{month}.csv"
+    "#{project_folder}/data/baumgartner_sparse/submissions/submission_sparse_#{year}-#{month}.csv"
   end
 
   def sparsify_submission(year, month)
@@ -27,7 +27,7 @@ module BaumgartnerSparsify
   end
 
   def bzip_comment(year, month)
-    "bzip2 -dck #{ENV["PWD"]}/data/baumgartner/comments/RC_#{year}-#{month}.bz2"
+    "bzip2 -dck #{project_folder}/data/baumgartner/comments/RC_#{year}-#{month}.bz2"
   end
 
   def jq_comment
@@ -35,7 +35,7 @@ module BaumgartnerSparsify
   end
 
   def sparse_file_comment(year, month)
-    "#{ENV["PWD"]}/data/baumgartner_sparse/comments/comment_sparse_#{year}-#{month}.csv"
+    "#{project_folder}/data/baumgartner_sparse/comments/comment_sparse_#{year}-#{month}.csv"
   end
 
   def sparsify_comment(year, month)
@@ -43,8 +43,8 @@ module BaumgartnerSparsify
   end
 
   def sparsify_missing_data
-    `cat #{ENV["PWD"]}/data/baumgartner/missing_data/missing_comments.json | #{jq_comment} | #{sort_file} >> #{ENV["PWD"]}/data/baumgartner_sparse/missing/comments.csv`
-    `cat #{ENV["PWD"]}/data/baumgartner/missing_data/missing_subreddits_0-10m.json | #{jq_submission} | #{sort_file} >> #{ENV["PWD"]}/data/baumgartner_sparse/missing/submissions.csv`
+    `cat #{project_folder}/data/baumgartner/missing_data/missing_comments.json | #{jq_comment} | #{sort_file} >> #{project_folder}/data/baumgartner_sparse/missing/comments.csv`
+    `cat #{project_folder}/data/baumgartner/missing_data/missing_subreddits_0-10m.json | #{jq_submission} | #{sort_file} >> #{project_folder}/data/baumgartner_sparse/missing/submissions.csv`
   end
 
   def sparsify_files
