@@ -28,7 +28,7 @@ def read_node_datasheet(filename):
         i += 1
   return dataset
 
-subreddits = ["reddit.com", "politics", "programming", "pics", "AskReddit", "worldnews", "WTF", "science", "funny", "technology", "atheism", "entertainment", "business", "gaming", "offbeat", "Economics", "videos", "nsfw", "comics", "environment", "Music", "linux", "Marijuana", "geek", "gossip", "sports", "gadgets", "news", "obama", "canada", "Libertarian", "scifi", "philosophy", "Health", "bestof", "self", "movies", "web_design", "humor", "sex", "apple", "worldpolitics", "wikipedia", "math", "food", "conspiracy", "energy", "economy", "it", "MensRights"]
+subreddits = ["guns", "reddit.com", "politics", "programming", "pics", "AskReddit", "worldnews", "WTF", "science", "funny", "technology", "atheism", "entertainment", "business", "gaming", "offbeat", "Economics", "videos", "nsfw", "comics", "environment", "Music", "linux", "Marijuana", "geek", "gossip", "sports", "gadgets", "news", "obama", "canada", "Libertarian", "scifi", "philosophy", "Health", "bestof", "self", "movies", "web_design", "humor", "sex", "apple", "worldpolitics", "wikipedia", "math", "food", "conspiracy", "energy", "economy", "it", "MensRights"]
 
 for file in files:
   raw_data = read_csv("tergm_analysis/"+file)

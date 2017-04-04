@@ -10,11 +10,11 @@ class WriteNetworks
   end
 
   def default_subreddits
-    {"AskReddit"=>1, "Economics"=>0, "Health"=>0, "Libertarian"=>0, "Marijuana"=>0, "MensRights"=>0, "Music"=>1, "WTF"=>1, "apple"=>0, "atheism"=>1, "bestof"=>1, "business"=>0, "canada"=>0, "comics"=>0, "conspiracy"=>0, "economy"=>0, "energy"=>0, "entertainment"=>0, "environment"=>0, "food"=>1, "funny"=>1, "gadgets"=>1, "gaming"=>1, "geek"=>0, "gossip"=>0, "humor"=>0, "it"=>0, "linux"=>0, "math"=>0, "movies"=>1, "news"=>1, "nsfw"=>0, "obama"=>0, "offbeat"=>0, "philosophy"=>1, "pics"=>1, "politics"=>1, "programming"=>0, "reddit.com"=>1, "science"=>1, "scifi"=>0, "self"=>0, "sex"=>0, "sports"=>1, "technology"=>1, "videos"=>1, "web_design"=>0, "wikipedia"=>0, "worldnews"=>1, "worldpolitics"=>0}
+    {"guns" => 0, "reddit" => 0, "AskReddit"=>1, "Economics"=>0, "Health"=>0, "Libertarian"=>0, "Marijuana"=>0, "MensRights"=>0, "Music"=>1, "WTF"=>1, "apple"=>0, "atheism"=>1, "bestof"=>1, "business"=>0, "canada"=>0, "comics"=>0, "conspiracy"=>0, "economy"=>0, "energy"=>0, "entertainment"=>0, "environment"=>0, "food"=>1, "funny"=>1, "gadgets"=>1, "gaming"=>1, "geek"=>0, "gossip"=>0, "humor"=>0, "it"=>0, "linux"=>0, "math"=>0, "movies"=>1, "news"=>1, "nsfw"=>0, "obama"=>0, "offbeat"=>0, "philosophy"=>1, "pics"=>1, "politics"=>1, "programming"=>0, "reddit.com"=>1, "science"=>1, "scifi"=>0, "self"=>0, "sex"=>0, "sports"=>1, "technology"=>1, "videos"=>1, "web_design"=>0, "wikipedia"=>0, "worldnews"=>1, "worldpolitics"=>0}
   end
 
   def categorized_subreddits
-    {"AskReddit"=>12, "Economics"=>0, "Health"=>3, "Libertarian"=>11, "Marijuana"=>3, "MensRights"=>11, "Music"=>8, "WTF"=>13, "apple"=>17, "atheism"=>10, "bestof"=>6, "business"=>0, "canada"=>2, "comics"=>5, "conspiracy"=>11, "economy"=>11, "energy"=>17, "entertainment"=>2, "environment"=>11, "food"=>3, "funny"=>4, "gadgets"=>17, "gaming"=>1, "geek"=>13, "gossip"=>2, "humor"=>4, "it"=>2, "linux"=>17, "math"=>15, "movies"=>7, "news"=>9, "nsfw"=>2, "obama"=>11, "offbeat"=>9, "philosophy"=>10, "pics"=>5, "politics"=>11, "programming"=>17, "reddit.com"=>2, "science"=>15, "scifi"=>7, "self"=>2, "sex"=>14, "sports"=>16, "technology"=>17, "videos"=>2, "web_design"=>17, "wikipedia"=>2, "worldnews"=>9, "worldpolitics"=>11}
+    {"guns" => 2, "reddit" => 2, "AskReddit"=>12, "Economics"=>0, "Health"=>3, "Libertarian"=>11, "Marijuana"=>3, "MensRights"=>11, "Music"=>8, "WTF"=>13, "apple"=>17, "atheism"=>10, "bestof"=>6, "business"=>0, "canada"=>2, "comics"=>5, "conspiracy"=>11, "economy"=>11, "energy"=>17, "entertainment"=>2, "environment"=>11, "food"=>3, "funny"=>4, "gadgets"=>17, "gaming"=>1, "geek"=>13, "gossip"=>2, "humor"=>4, "it"=>2, "linux"=>17, "math"=>15, "movies"=>7, "news"=>9, "nsfw"=>2, "obama"=>11, "offbeat"=>9, "philosophy"=>10, "pics"=>5, "politics"=>11, "programming"=>17, "reddit.com"=>2, "science"=>15, "scifi"=>7, "self"=>2, "sex"=>14, "sports"=>16, "technology"=>17, "videos"=>2, "web_design"=>17, "wikipedia"=>2, "worldnews"=>9, "worldpolitics"=>11}
   end
 
   def political_subreddits
@@ -30,7 +30,7 @@ class WriteNetworks
   end
 
   def default_status
-    {"AskReddit"=>1, "Economics"=>0, "Health"=>0, "Libertarian"=>0, "Marijuana"=>0, "MensRights"=>0, "Music"=>1, "WTF"=>1, "apple"=>0, "atheism"=>1, "bestof"=>1, "business"=>0, "canada"=>0, "comics"=>0, "conspiracy"=>0, "economy"=>0, "energy"=>0, "entertainment"=>0, "environment"=>0, "food"=>1, "funny"=>1, "gadgets"=>1, "gaming"=>1, "geek"=>0, "gossip"=>0, "humor"=>0, "it"=>0, "linux"=>0, "math"=>0, "movies"=>1, "news"=>1, "nsfw"=>0, "obama"=>0, "offbeat"=>0, "philosophy"=>1, "pics"=>1, "politics"=>1, "programming"=>0, "reddit.com"=>1, "science"=>1, "scifi"=>0, "self"=>0, "sex"=>0, "sports"=>1, "technology"=>1, "videos"=>1, "web_design"=>0, "wikipedia"=>0, "worldnews"=>1, "worldpolitics"=>0}
+    {"guns" => 0, "reddit" => 1, "AskReddit"=>1, "Economics"=>0, "Health"=>0, "Libertarian"=>0, "Marijuana"=>0, "MensRights"=>0, "Music"=>1, "WTF"=>1, "apple"=>0, "atheism"=>1, "bestof"=>1, "business"=>0, "canada"=>0, "comics"=>0, "conspiracy"=>0, "economy"=>0, "energy"=>0, "entertainment"=>0, "environment"=>0, "food"=>1, "funny"=>1, "gadgets"=>1, "gaming"=>1, "geek"=>0, "gossip"=>0, "humor"=>0, "it"=>0, "linux"=>0, "math"=>0, "movies"=>1, "news"=>1, "nsfw"=>0, "obama"=>0, "offbeat"=>0, "philosophy"=>1, "pics"=>1, "politics"=>1, "programming"=>0, "reddit.com"=>1, "science"=>1, "scifi"=>0, "self"=>0, "sex"=>0, "sports"=>1, "technology"=>1, "videos"=>1, "web_design"=>0, "wikipedia"=>0, "worldnews"=>1, "worldpolitics"=>0}
   end
 
   def time_key(time, type)
@@ -52,7 +52,7 @@ class WriteNetworks
     traffic_per_step = {}
     time = start_time
     while time < end_time
-      data = DailyEdgeRedis.get(method_suffix, time.strftime("%Y-%m-%d"), "%Y-%m-%d", percentile)
+      data = DailyEdgeRedis.get("_"+method_suffix, time.strftime("%Y-%m-%d"), "%Y-%m-%d", percentile)
       time_str = time_key(time, time_resolution)
       dataset[time_str] ||= {}
       data.each do |target_node, source_nodes|
@@ -88,6 +88,8 @@ class WriteNetworks
     end;false
     dataset = restricted;false
     #obs_est_data = CSV.open("blah.csv", "w")
+    `mkdir tergm_analysis`
+    `mkdir tergm_analysis_node_data`
     dataset.keys.sort[(dataset.keys.sort.index(earliest_possible_date)+1)..-1].each do |time_step|
       network = dataset[time_step]
       cutoff_net = {}
@@ -98,8 +100,6 @@ class WriteNetworks
         end
       end
       network = cutoff_net;false
-      `mkdir tergm_analysis`
-      `mkdir tergm_analysis_node_data`
       f = File.open("tergm_analysis/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
       n = File.open("tergm_analysis_node_data/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
       f.write(["source", "target", "observed", "previous", "estimated"].join(",")+"\n")
@@ -122,7 +122,8 @@ class WriteNetworks
       f.close
       n.close
     end;false
-    `python generate_gml.py #{time_resolution}`
+    `mkdir tergm_analysis_gml`
+    `python generate_gml.py #{time_resolution} #{method_suffix}`
     #obs_est_data.close
   end
   
@@ -135,18 +136,25 @@ class WriteNetworks
     WriteNetworks.new.generate_restricted_dataset("day", "early_reddit", 0.0)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.25)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m-%d", 0.25)
+    WriteNetworks.new.generate_restricted_dataset("day", "early_reddit", 0.25)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.50)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m-%d", 0.50)
+    WriteNetworks.new.generate_restricted_dataset("day", "early_reddit", 0.50)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m-%d", 0.75)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m-%d", 0.75)
+    WriteNetworks.new.generate_restricted_dataset("day", "early_reddit", 0.75)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m", 0.0)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.0)
+    WriteNetworks.new.generate_restricted_dataset("month", "early_reddit", 0.0)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m", 0.25)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.25)
+    WriteNetworks.new.generate_restricted_dataset("month", "early_reddit", 0.25)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m", 0.50)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.50)
+    WriteNetworks.new.generate_restricted_dataset("month", "early_reddit", 0.50)
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m", 0.75)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.75)
+    WriteNetworks.new.generate_restricted_dataset("month", "early_reddit", 0.75)
     WriteNetworks.new.generate_restricted_dataset("week")
     WriteNetworks.new.generate_restricted_dataset("month")
     WriteNetworks.new.generate_restricted_dataset("quarter")
