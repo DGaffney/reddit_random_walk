@@ -92,14 +92,14 @@ class WriteNetworks
     `mkdir tergm_analysis_node_data`
     dataset.keys.sort[(dataset.keys.sort.index(earliest_possible_date)+1)..-1].each do |time_step|
       network = dataset[time_step]
-      cutoff_net = {}
+      net = {}
       network.each do |target_node, source_nodes|
-        cutoff_net[target_node] ||= {}
+        net[target_node] ||= {}
         source_nodes.each do |source_node, source_val|
-          cutoff_net[target_node][source_node] = source_val
+          net[target_node][source_node] = source_val
         end
       end
-      network = cutoff_net;false
+      network = net;false
       f = File.open("tergm_analysis/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
       n = File.open("tergm_analysis_node_data/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
       f.write(["source", "target", "observed", "previous", "estimated"].join(",")+"\n")
@@ -155,24 +155,5 @@ class WriteNetworks
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m", 0.75)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.75)
     WriteNetworks.new.generate_restricted_dataset("month", "early_reddit", 0.75)
-    WriteNetworks.new.generate_restricted_dataset("week")
-    WriteNetworks.new.generate_restricted_dataset("month")
-    WriteNetworks.new.generate_restricted_dataset("quarter")
-    WriteNetworks.new.generate_restricted_dataset("day", 0.25)
-    WriteNetworks.new.generate_restricted_dataset("week", 0.25)
-    WriteNetworks.new.generate_restricted_dataset("month", 0.25)
-    WriteNetworks.new.generate_restricted_dataset("quarter", 0.25)
-    WriteNetworks.new.generate_restricted_dataset("day", 0.5)
-    WriteNetworks.new.generate_restricted_dataset("week", 0.5)
-    WriteNetworks.new.generate_restricted_dataset("month", 0.5)
-    WriteNetworks.new.generate_restricted_dataset("quarter", 0.5)
-    WriteNetworks.new.generate_restricted_dataset("day", 0.75)
-    WriteNetworks.new.generate_restricted_dataset("week", 0.75)
-    WriteNetworks.new.generate_restricted_dataset("month", 0.75)
-    WriteNetworks.new.generate_restricted_dataset("quarter", 0.75)
-    WriteNetworks.new.generate_restricted_dataset("day", 0.95)
-    WriteNetworks.new.generate_restricted_dataset("week", 0.95)
-    WriteNetworks.new.generate_restricted_dataset("month", 0.95)
-    WriteNetworks.new.generate_restricted_dataset("quarter", 0.95)
   end
 end

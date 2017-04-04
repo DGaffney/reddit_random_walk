@@ -56,7 +56,7 @@ class NodeWalkerDiffs
     sequential << ["Subreddit", "Time Slice", "Inbound Traffic Count", "Abs Error from Random", "Percent Attributable to Random"]
     summarized << ["Subreddit", "Sum Inbound Traffic Count", "Obs Count", "Avg Abs Error from Random", "Avg Percent Attributable to Random"]
     summary_data = {}
-    NodeWalkerDiffs.where(dataset_tag: dataset_tag, strftime_str: strftime_str, percentile: percentile, cumulative_post_cutoff: cumulative_post_cutoff).order(:time).each do |nwd|
+    NodeWalkerDiffs.where(dataset_tag: "_"+dataset_tag, strftime_str: strftime_str, percentile: percentile, cumulative_post_cutoff: cumulative_post_cutoff).order(:time).each do |nwd|
       sequential << [nwd.subreddit, nwd.time_str, nwd.traffic_in_count, nwd.node_error, nwd.attributable_to_random]
       summary_data[nwd.subreddit] ||= {subreddit_size: 0, total_obs: 0, total_error: 0, total_attributable: 0}
       summary_data[nwd.subreddit][:subreddit_size] += nwd.traffic_in_count
