@@ -104,14 +104,14 @@ class WriteNetworks
       n = File.open("tergm_analysis_node_data/#{only_higher == true ? "higher" : "lower"}"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
       f.write(["source", "target", "observed", "previous", "estimated"].join(",")+"\n")
       n.write(["subreddit", "default_status", "traffic_count", "log_traffic_count", "category", "political", "general_interest", "technology"].join(",")+"\n")
-      network.keys.sort.each do |target_node|
+      biggest_subreddits.each do |target_node|
         next if target_node.nil? || target_node.empty?
-        observed_traffic = network[target_node]
+        observed_traffic = network[target_node] || {}
         previous_observed_traffic = dataset[dataset.keys.sort[(dataset.keys.sort.index(time_step)-1)]][target_node] || {}
         estimated_traffic = Hash[observed_traffic.keys.collect{|k| [k, (1.0/network.collect{|kk,v| v[k]}.count) * network.collect{|kk,v| v[k]}.sum]}]
         #estimated_traffic.collect{|k,v| obs_est_data << [v, observed_traffic[k]]}
         if biggest_subreddits.include?(target_node)
-          n.write([target_node, default_status[target_node], traffic_per_step[target_node][time_step], (Math.log(traffic_per_step[target_node][time_step]).to_i rescue 0), categorized_subreddits[target_node], political_subreddits[target_node], general_subreddits[target_node], technology_subreddits[target_node]].join(",")+"\n")
+          n.write([target_node, default_status[target_node]||0, traffic_per_step[target_node][time_step]||0, (Math.log(traffic_per_step[target_node][time_step]).to_i rescue 0), categorized_subreddits[target_node]||0, political_subreddits[target_node]||0, general_subreddits[target_node]||0, technology_subreddits[target_node]||0].join(",")+"\n")
         end
         observed_traffic.keys.each do |source_node, traffic_count|
           if target_node != source_node && biggest_subreddits.include?(source_node) && biggest_subreddits.include?(target_node)

@@ -34,13 +34,12 @@ def read_node_datasheet(filename):
         i += 1
   return dataset
 
-subreddits = ["guns", "reddit.com", "politics", "programming", "pics", "AskReddit", "worldnews", "WTF", "science", "funny", "technology", "atheism", "entertainment", "business", "gaming", "offbeat", "Economics", "videos", "nsfw", "comics", "environment", "Music", "linux", "Marijuana", "geek", "gossip", "sports", "gadgets", "news", "obama", "canada", "Libertarian", "scifi", "philosophy", "Health", "bestof", "self", "movies", "web_design", "humor", "sex", "apple", "worldpolitics", "wikipedia", "math", "food", "conspiracy", "energy", "economy", "it", "MensRights"]
-
 for file in files:
+  print file
   raw_data = read_csv("tergm_analysis/"+file)
   node_data = read_node_datasheet("tergm_analysis_node_data/"+file)
   graph = igraph.Graph(directed=True)
-  graph.add_vertices(subreddits)
+  graph.add_vertices([n[0] for n in node_data])
   graph.add_edges([(el[0], el[1]) for el in raw_data])
   graph.es()['observed'] = [int(el[2]) for el in raw_data]
   graph.es()['previous'] = [int(el[3]) for el in raw_data]
