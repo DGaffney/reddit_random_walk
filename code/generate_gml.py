@@ -5,7 +5,13 @@ import csv
 import igraph
 time_resolution = sys.argv[1]
 dataset_tag = sys.argv[2]
-files = [f for f in os.listdir("tergm_analysis") if time_resolution in f and dataset_tag in f]
+higher_lower = sys.argv[3]
+files = []
+if higher_lower == "higher":
+  files = [f for f in os.listdir("tergm_analysis") if time_resolution in f and dataset_tag in f and "higher" in f]
+else:
+  files = [f for f in os.listdir("tergm_analysis") if time_resolution in f and dataset_tag in f and "lower" in f]
+
 def read_csv(filename):
   dataset = []
   i = 0

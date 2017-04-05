@@ -47,9 +47,9 @@ class BaumgartnerDataset
     prepare
   end
   
-  def store_sliced_transitions(strftime_str, percentile)
-    generate_edge_transitions_by_timeframe(strftime_str, percentile)
-    summarize_transitions(strftime_str, percentile)
+  def store_sliced_transitions(strftime_str, percentile, only_higher=true)
+    generate_edge_transitions_by_timeframe(strftime_str)
+    summarize_transitions(strftime_str, percentile, only_higher)
   end
   
   def analyze_sliced_transitions(strftime_str, percentile)

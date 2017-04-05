@@ -45,14 +45,14 @@ class WriteNetworks
     end
   end
   
-  def generate_restricted_dataset(time_resolution, method_suffix, percentile=0.0, start_time=Time.parse("2005-06-25"), end_time=Time.parse("2009-06-25"))
+  def generate_restricted_dataset(time_resolution, method_suffix, percentile=0.0, only_higher=true, start_time=Time.parse("2005-06-25"), end_time=Time.parse("2009-06-25"))
     dataset = {}
     all_counts = {}
     first_seens = {}
     traffic_per_step = {}
     time = start_time
     while time < end_time
-      data = DailyEdgeRedis.get("_"+method_suffix, time.strftime("%Y-%m-%d"), "%Y-%m-%d", percentile)
+      data = DailyEdgeRedis.get("#{only_higher == true ? "higher" : "lower"}"+"_"+method_suffix, time.strftime("%Y-%m-%d"), "%Y-%m-%d", percentile)
       time_str = time_key(time, time_resolution)
       dataset[time_str] ||= {}
       data.each do |target_node, source_nodes|
@@ -100,8 +100,8 @@ class WriteNetworks
         end
       end
       network = net;false
-      f = File.open("tergm_analysis/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
-      n = File.open("tergm_analysis_node_data/"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
+      f = File.open("tergm_analysis/#{only_higher == true ? "higher" : "lower"}"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
+      n = File.open("tergm_analysis_node_data/#{only_higher == true ? "higher" : "lower"}"+time_step+"_#{time_resolution}_#{percentile}_#{method_suffix}.csv", "w")
       f.write(["source", "target", "observed", "previous", "estimated"].join(",")+"\n")
       n.write(["subreddit", "default_status", "traffic_count", "log_traffic_count", "category", "political", "general_interest", "technology"].join(",")+"\n")
       network.keys.sort.each do |target_node|
@@ -123,7 +123,7 @@ class WriteNetworks
       n.close
     end;false
     `mkdir tergm_analysis_gml`
-    `python generate_gml.py #{time_resolution} #{method_suffix}`
+    `python generate_gml.py #{time_resolution} #{method_suffix} #{only_higher == true ? "higher" : "lower"}`
     #obs_est_data.close
   end
   
@@ -155,5 +155,9 @@ class WriteNetworks
     BaumgartnerDataset.new("early_reddit").store_sliced_transitions("%Y-%m", 0.75)
     BaumgartnerDataset.new("early_reddit").analyze_sliced_transitions("%Y-%m", 0.75)
     WriteNetworks.new.generate_restricted_dataset("month", "early_reddit", 0.75)
+    WriteNetworks.new.generate_restricted_dataset("quarter", "early_reddit", 0.0)
+    WriteNetworks.new.generate_restricted_dataset("quarter", "early_reddit", 0.5)
+    WriteNetworks.new.generate_restricted_dataset("quarter", "early_reddit", 0.25)
+    WriteNetworks.new.generate_restricted_dataset("quarter", "early_reddit", 0.75)
   end
 end
